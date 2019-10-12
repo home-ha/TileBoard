@@ -559,12 +559,12 @@ This is a custom tile which can be used for displaying values from different sen
    hideHeader: false,
    secondaryTitle: 'Wind',
    list: [1,2,3,4,5].map(function (id) {
-      var forecast = "&sensor.dark_sky_overnight_low_temperature_" + id + ".state - ";
-      forecast += "&sensor.dark_sky_daytime_high_temperature_" + id + ".state";
-      forecast += "&sensor.dark_sky_daytime_high_temperature_" + id + ".attributes.unit_of_measurement";
+      var forecast = "&sensor.dark_sky_overnight_low_temperature_" + id + "d.state - ";
+      forecast += "&sensor.dark_sky_daytime_high_temperature_" + id + "d.state";
+      forecast += "&sensor.dark_sky_daytime_high_temperature_" + id + "d.attributes.unit_of_measurement";
 
-      var wind = "&sensor.dark_sky_wind_speed_" + id + ".state";
-      wind += " &sensor.dark_sky_wind_speed_" + id + ".attributes.unit_of_measurement";
+      var wind = "&sensor.dark_sky_wind_speed_" + id + "d.state";
+      wind += " &sensor.dark_sky_wind_speed_" + id + "d.attributes.unit_of_measurement";
 
       return {
          date: function () {
@@ -577,5 +577,39 @@ This is a custom tile which can be used for displaying values from different sen
          secondary: wind
       }
    })
+}
+```
+
+#### GAUGE
+![GAUGE](images/tile-screenshots/GAUGE.png)<br>
+```js
+{
+   position: [0, 1.5],
+   width: 1.5,
+   height: 1,
+   title: 'Energy Production',
+   subtitle: '',
+   type: TYPES.GAUGE,
+   id: 'sensor.my_enery_sensor', // Assign the sensor you want to display on the gauge
+   value: function(item, entity){
+      return entity.state;
+   },
+   settings: {
+      size: 200, // Defaults to 50% of either height or width, whichever is smaller
+      type: 'full', // Options are: 'full', 'semi', and 'arch'. Defaults to 'full'
+      min: 0, // Defaults to 0
+      max: 100, // Defaults to 100
+      cap: 'round', // Options are: 'round', 'butt'. Defaults to 'butt'
+      thick: 6, // Defaults to 6
+      label: 'My Gauge', // Defaults to undefined
+      append: '@attributes.unit_of_measurement', // Defaults to undefined
+      prepend: '$', // Defaults to undefined
+      duration: 1500, // Defaults to 1500ms
+      thresholds: { 0: { color: 'green'}, 80: { color: 'red' } },  // Defaults to undefined
+      labelOnly: false, // Defaults to false
+      foregroundColor: 'rgba(0, 150, 136, 1)', // Defaults to rgba(0, 150, 136, 1)
+      backgroundColor: 'rgba(0, 0, 0, 0.1)', // Defaults to rgba(0, 0, 0, 0.1)
+      fractionSize: 0, // Number of decimal places to round the number to. Defaults to current locale formatting
+   },
 }
 ```

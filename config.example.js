@@ -17,6 +17,7 @@ var CONFIG = {
    wsUrl: "ws://localhost:8123/api/websocket",
    authToken: null, // optional long-lived token (CAUTION: only if TileBoard is not exposed to the internet)
    //googleApiKey: "XXXXXXXXXX", // Required if you are using Google Maps for device tracker
+   //mapboxToken: "XXXXXXXXXX", // Required if you are using Mapbox for device tracker
    debug: false, // Prints entities and state change info to the console.
    pingConnection: true, //ping connection to prevent silent disconnections
 
@@ -244,7 +245,36 @@ var CONFIG = {
                            value: 'github.com'
                         }
                      ]
-                  }
+                  },
+                  {
+                     position: [0, 1.5],
+                     width: 1.5,
+                     height: 1,
+                     title: 'My Gauge Title',
+                     subtitle: '',
+                     type: TYPES.GAUGE,
+                     id: 'sensor.my_sample_sensor', // Assign the sensor you want to display on the gauge
+                     value: function(item, entity) {
+                        return entity.state;
+                     },
+                     settings: {
+                        size: 200, // Defaults to 50% of either height or width, whichever is smaller
+                        type: 'full', // Options are: 'full', 'semi', and 'arch'. Defaults to 'full'
+                        min: 0, // Defaults to 0
+                        max: 25000, // Defaults to 100
+                        cap: 'round', // Options are: 'round', 'butt'. Defaults to 'butt'
+                        thick: 8, // Defaults to 6
+                        label: 'My Gauge', // Defaults to undefined
+                        append: '@attributes.unit_of_measurement', // Defaults to undefined
+                        prepend: '$', // Defaults to undefined
+                        duration: 1500, // Defaults to 1500ms
+                        thresholds: { 0: { color: 'green'}, 80: { color: 'red' } }, // Defaults to undefined
+                        labelOnly: false, // Defaults to false
+                        foregroundColor: 'rgba(0, 150, 136, 1)', // Defaults to rgba(0, 150, 136, 1)
+                        backgroundColor: 'rgba(0, 0, 0, 0.1)', // Defaults to rgba(0, 0, 0, 0.1)
+                        fractionSize: 0, // Number of decimal places to round the number to. Defaults to current locale formatting
+                     },
+                  },
                ]
             },
          ]

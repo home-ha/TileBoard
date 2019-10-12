@@ -78,10 +78,21 @@ var CONFIG = {
    /* timeFormat: 12 for AM/PM marker, 24 for 24 hour time (default) */
    timeFormat: Number,
    
-   /* Google API key is required if you are using device tarcker tiles along with Google Maps.
+   /* googleApiKey: Google API key is required if you are using device tracker tiles along with Google Maps.
     * More info here: https://developers.google.com/maps/documentation/maps-static/usage-and-billing
     */
    googleApiKey: null,
+
+   /* A Mapbox token is required if you are using device tracker tiles along with Mapbox.
+    * More info here: https://www.mapbox.com/maps/
+    */
+   mapboxToken: null,
+
+   /* mapboxStyle: Enter a style URL to change the mapbox style for device tracker tiles.
+    * The format of the url is: mapbox://styles/username/style-id
+    * If no style URL is entered, the style will default to mapbox/streets-v11.
+    */
+   mapboxStyle: null,
 
    /* menuPosition: LEFT (default) or BOTTOM */
    menuPosition: MENU_POSITIONS.LEFT,
@@ -316,7 +327,7 @@ Tile Object. [Click here for some real life examples](TILE_EXAMPLES.md)
   slidesDelay: 2,
 
   /* map: Map provider for showing position inside tile
-   * Valid options: 'google', 'yandex'
+   * Valid options: 'google', 'mapbox', 'yandex'
    */
   map: 'google',
   
@@ -397,6 +408,26 @@ Tile Object. [Click here for some real life examples](TILE_EXAMPLES.md)
     */
    fields: {},
 
+   /** type: GAUGE **/
+   /* Object containing gauge settings. Refer to https://ashish-chopra.github.io/angular-gauge/#!#documentation */
+   settings: {
+      size: 200, // Defaults to 50% of either height or width, whichever is smaller
+      type: 'full', // Options are: 'full', 'semi', and 'arch'. Defaults to 'full'
+      min: 0, // Defaults to 0
+      max: 25000, // Defaults to 100
+      cap: 'round', // Options are: 'round', 'butt'. Defaults to 'butt'
+      thick: 8, // Defaults to 6
+      label: 'My Gauge', // Defaults to undefined
+      append: '@attributes.unit_of_measurement', // Defaults to undefined
+      prepend: '$', // Defaults to undefined
+      duration: 1500, // Defaults to 1500ms
+      thresholds: { 0: { color: 'green'}, 80: { color: 'red' } },  // Defaults to undefined
+      labelOnly: false, // Defaults to false
+      foregroundColor: 'rgba(0, 150, 136, 1)', // Defaults to rgba(0, 150, 136, 1)
+      backgroundColor: 'rgba(0, 0, 0, 0.1)', // Defaults to rgba(0, 0, 0, 0.1)
+      fractionSize: 0 // Number of decimal places to round the number to. Defaults to current locale formatting
+   },
+  
    /* classes: Additional CSS classes. Use 'compact' for a compact (1x1) tile
     * (optional)
     */
@@ -456,6 +487,8 @@ var TYPES = {
    WEATHER_LIST: 'weather_list',
    VACUUM: 'vacuum',
    POPUP_IFRAME: 'popup_iframe',
+   DIMMER_SWITCH: 'dimmer_switch',
+   GAUGE: 'gauge',
 };
 ```
 
